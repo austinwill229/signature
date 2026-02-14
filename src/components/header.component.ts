@@ -62,7 +62,7 @@ import { SettingsService } from '../services/settings.service';
                   Customer service <i class="fa-solid fa-chevron-down text-[10px] mt-0.5"></i>
                 </button>
               </div>
-              <!-- Language Translator Dropdown -->
+              <!-- GTranslate Flags Dropdown -->
               <div class="relative dropdown-container">
                 <button (click)="toggleDropdown('language', $event)" class="hover:text-blue-600 flex items-center gap-1.5 group">
                   <i class="fa-solid fa-globe text-gray-400 group-hover:text-blue-600"></i>
@@ -71,16 +71,33 @@ import { SettingsService } from '../services/settings.service';
                 </button>
                 @if (activeDropdown() === 'language') {
                   <div class="absolute right-0 top-full mt-2 w-48 bg-white shadow-2xl rounded-lg py-2 z-[60] border border-gray-100 grid grid-cols-1 divide-y divide-gray-50">
-                    <button (click)="translateTo('es')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors">Español</button>
-                    <button (click)="translateTo('fr')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors">Français</button>
-                    <button (click)="translateTo('de')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors">Deutsch</button>
-                    <button (click)="translateTo('zh-CHS')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors">简体中文</button>
-                    <button (click)="translateTo('ja')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors">日本語</button>
-                    <button (click)="translateTo('ar')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors">العربية</button>
-                    <button (click)="translateTo('ru')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors">Русский</button>
-                    <button (click)="translateTo('pt')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors">Português</button>
-                    <button (click)="translateTo('it')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors">Italiano</button>
-                    <button (click)="translateTo('hi')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors">हिन्दी</button>
+                    <button (click)="translateTo('es')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors flex items-center gap-2">
+                      <img src="https://flagcdn.com/w20/es.png" width="20" height="15" alt="Spanish"> Español
+                    </button>
+                    <button (click)="translateTo('fr')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors flex items-center gap-2">
+                      <img src="https://flagcdn.com/w20/fr.png" width="20" height="15" alt="French"> Français
+                    </button>
+                    <button (click)="translateTo('de')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors flex items-center gap-2">
+                      <img src="https://flagcdn.com/w20/de.png" width="20" height="15" alt="German"> Deutsch
+                    </button>
+                    <button (click)="translateTo('zh-CN')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors flex items-center gap-2">
+                      <img src="https://flagcdn.com/w20/cn.png" width="20" height="15" alt="Chinese"> 简体中文
+                    </button>
+                    <button (click)="translateTo('ja')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors flex items-center gap-2">
+                      <img src="https://flagcdn.com/w20/jp.png" width="20" height="15" alt="Japanese"> 日本語
+                    </button>
+                    <button (click)="translateTo('ar')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors flex items-center gap-2">
+                      <img src="https://flagcdn.com/w20/sa.png" width="20" height="15" alt="Arabic"> العربية
+                    </button>
+                    <button (click)="translateTo('ru')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors flex items-center gap-2">
+                      <img src="https://flagcdn.com/w20/ru.png" width="20" height="15" alt="Russian"> Русский
+                    </button>
+                    <button (click)="translateTo('pt')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors flex items-center gap-2">
+                      <img src="https://flagcdn.com/w20/pt.png" width="20" height="15" alt="Portuguese"> Português
+                    </button>
+                    <button (click)="translateTo('it')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors flex items-center gap-2">
+                      <img src="https://flagcdn.com/w20/it.png" width="20" height="15" alt="Italian"> Italiano
+                    </button>
                   </div>
                 }
               </div>
@@ -235,7 +252,7 @@ export class HeaderComponent implements OnInit {
 
   translateTo(langCode: string) {
     const currentUrl = window.location.href;
-    const translateUrl = `https://www.microsofttranslator.com/bv.aspx?from=&to=${langCode}&a=${encodeURIComponent(currentUrl)}`;
+    const translateUrl = `https://translate.google.com/translate?sl=auto&tl=${langCode}&u=${encodeURIComponent(currentUrl)}`;
     window.open(translateUrl, '_blank');
     this.closeAllMenus();
   }
