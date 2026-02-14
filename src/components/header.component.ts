@@ -70,7 +70,7 @@ import { SettingsService } from '../services/settings.service';
                   <i class="fa-solid fa-chevron-down text-[10px] mt-0.5" [ngClass]="{'rotate-180': activeDropdown() === 'language'}"></i>
                 </button>
                 @if (activeDropdown() === 'language') {
-                  <div class="absolute right-0 top-full mt-2 w-48 bg-white shadow-2xl rounded-lg py-2 z-[60] border border-gray-100 grid grid-cols-1 divide-y divide-gray-50">
+                  <div class="absolute right-0 top-full mt-2 w-48 bg-white shadow-2xl rounded-lg py-2 z-[60] border border-gray-100 grid grid-cols-1 divide-y divide-gray-50 overflow-hidden">
                     <button (click)="translateTo('es')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors flex items-center gap-2">
                       <img src="https://flagcdn.com/w20/es.png" width="20" height="15" alt="Spanish"> Español
                     </button>
@@ -97,6 +97,10 @@ import { SettingsService } from '../services/settings.service';
                     </button>
                     <button (click)="translateTo('it')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors flex items-center gap-2">
                       <img src="https://flagcdn.com/w20/it.png" width="20" height="15" alt="Italian"> Italiano
+                    </button>
+                    <!-- "en" is default -->
+                    <button (click)="translateTo('en')" class="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm font-medium transition-colors flex items-center gap-2 border-t">
+                      <img src="https://flagcdn.com/w20/us.png" width="20" height="15" alt="English"> English
                     </button>
                   </div>
                 }
@@ -251,9 +255,15 @@ export class HeaderComponent implements OnInit {
   }
 
   translateTo(langCode: string) {
-    const currentUrl = window.location.href;
-    const translateUrl = `https://translate.google.com/translate?sl=auto&tl=${langCode}&u=${encodeURIComponent(currentUrl)}`;
-    window.open(translateUrl, '_blank');
+    if ((window as any).doGTranslate) {
+      (window as any).doGTranslate(`en|${langCode}`);
+    } else {
+      console.error('GTranslate script not loaded');
+      // Fallback if script fails
+      const currentUrl = window.location.href;
+      const translateUrl = `https://translate.google.com/translate?sl=auto&tl=${langCode}&u=${encodeURIComponent(currentUrl)}`;
+      window.open(translateUrl, '_blank');
+    }
     this.closeAllMenus();
   }
 }
