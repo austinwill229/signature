@@ -200,8 +200,6 @@ import { CommonModule } from '@angular/common';
                 </div>
               </div>
             </section>
-
-            </section>
             
             <!-- Security Settings (Username/Password) -->
             <section class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
