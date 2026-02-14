@@ -1,0 +1,9 @@
+#!/usr/bin/expect -f
+set password [lindex $argv 0]
+set host [lindex $argv 1]
+set command [lindex $argv 2]
+
+spawn ssh -o StrictHostKeyChecking=no root@$host $command
+expect "password:"
+send "$password\r"
+interact

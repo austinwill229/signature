@@ -201,18 +201,36 @@ import { CommonModule } from '@angular/common';
               </div>
             </section>
 
-            <!-- Custom Scripts -->
+            </section>
+            
+            <!-- Security Settings (Username/Password) -->
             <section class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
               <div class="p-6 border-b border-gray-100 bg-gray-50">
                 <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
-                  <i class="fa-brands fa-js text-yellow-500"></i> Custom Scripts & Integrations
+                  <i class="fa-solid fa-shield-halved text-red-600"></i> Security Settings
                 </h2>
               </div>
               <div class="p-6 space-y-6">
-                <div class="space-y-2">
-                  <label class="block text-sm font-bold text-gray-700">Custom JavaScript (e.g., Translator)</label>
-                  <p class="text-xs text-gray-500">Paste your script code here. It will be injected into the page footer.</p>
-                  <textarea [(ngModel)]="settings.custom_js_script" rows="6" class="w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 font-mono text-sm" placeholder="<script>...</script>"></textarea>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="space-y-2">
+                    <label class="block text-sm font-bold text-gray-700">New Username</label>
+                    <input [(ngModel)]="authSettings.newUsername" type="text" class="w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="New username (optional)">
+                  </div>
+                  <div class="space-y-2">
+                    <label class="block text-sm font-bold text-gray-700">New Password</label>
+                    <input [(ngModel)]="authSettings.newPassword" type="password" class="w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="New password (optional)">
+                  </div>
+                </div>
+                <div class="pt-4 border-t">
+                  <div class="space-y-2">
+                    <label class="block text-sm font-bold text-gray-700">Confirm with Current Password</label>
+                    <input [(ngModel)]="authSettings.currentPassword" type="password" class="w-full px-4 py-2 border border-red-200 rounded-md focus:ring-red-500 focus:border-red-500" placeholder="Required to save security changes">
+                  </div>
+                  <div class="mt-4 flex justify-end">
+                    <button (click)="updateCredentials()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-md transition-all shadow-md active:scale-95 text-sm">
+                      Update Security Credentials
+                    </button>
+                  </div>
                 </div>
               </div>
             </section>
@@ -264,6 +282,12 @@ export class AdminDashboardComponent implements OnInit {
     custom_js_script: ''
   };
 
+  authSettings = {
+    newUsername: '',
+    newPassword: '',
+    currentPassword: ''
+  };
+
   successMessage = signal('');
 
   ngOnInit() {
@@ -311,6 +335,42 @@ export class AdminDashboardComponent implements OnInit {
       },
       error: (err) => {
         alert('Failed to update settings');
+      }
+    });
+  }
+
+  updateCredentials() {
+    if (!this.authSettings.currentPassword) {
+      alert('Current password is required to save security changes');
+      return;
+    }
+
+    if (!this.authSettings.newUsername && !this.authSettings.newPassword) {
+      alert('Please provide a new username or password to update');
+      return;
+    }
+
+    this.http.post('api/admin/update_credentials.php', this.authSettings).subscribe({
+      next: (res: any) => {
+        if (res && res.success) {
+          this.successMessage.set('Credentials updated successfully! Please log in again.');
+          this.cdr.markForCheck();
+
+          // Clear auth settings
+          this.authSettings = {
+            newUsername: '',
+            newPassword: '',
+            currentPassword: ''
+          };
+
+          setTimeout(() => {
+            this.logout();
+          }, 3000);
+        }
+      },
+      error: (err: any) => {
+        const errorMsg = err.error?.error || 'Failed to update credentials';
+        alert(errorMsg);
       }
     });
   }
