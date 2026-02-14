@@ -69,6 +69,10 @@ export class AppComponent {
       if (s?.custom_js_script) {
         this.injectCustomScript(s.custom_js_script);
       }
+
+      if (s?.translation_script) {
+        this.injectTranslationScript(s.translation_script);
+      }
     });
   }
 
@@ -117,5 +121,50 @@ export class AppComponent {
 
     const ss = document.getElementsByTagName('script')[0];
     ss.parentNode?.insertBefore(s, ss);
+  }
+
+  private injectTranslationScript(scriptContent: string) {
+    const scriptId = 'translation-script-container';
+    let container = document.getElementById(scriptId);
+
+    if (container) {
+      container.innerHTML = '';
+    } else {
+      container = document.createElement('div');
+      container.id = scriptId;
+      document.body.appendChild(container);
+    }
+
+    // Create a temporary element to parse the HTML string
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(`<div>${scriptContent}</div>`, 'text/html');
+    const elements = doc.querySelector('div')?.childNodes;
+
+    if (elements) {
+      Array.from(elements).forEach(node => {
+        if (node.nodeName === 'SCRIPT') {
+          const oldScript = node as HTMLScriptElement;
+          const newScript = document.createElement('script');
+
+          // Copy attributes
+          Array.from(oldScript.attributes).forEach(attr => {
+            newScript.setAttribute(attr.name, attr.value);
+          });
+
+          // Copy inline content
+          newScript.text = oldScript.text;
+
+          document.body.appendChild(newScript);
+        } else if (node.nodeName === 'STYLE') {
+          const style = document.createElement('style');
+          style.textContent = (node as HTMLElement).textContent;
+          document.head.appendChild(style);
+        } else {
+          // For DIVs and other HTML elements, we append them to our container
+          const clone = node.cloneNode(true);
+          container?.appendChild(clone);
+        }
+      });
+    }
   }
 }

@@ -108,6 +108,16 @@ import { CommonModule } from '@angular/common';
                 </div>
               </div>
             </section>
+
+            <!-- Translation Configuration -->
+            <section class="space-y-6">
+              <h2 class="text-xl font-bold text-gray-800 border-b pb-2">Translation Configuration</h2>
+              <div class="space-y-2">
+                <label class="block text-sm font-bold text-gray-700">Translation Script (e.g. GTranslate)</label>
+                <textarea [(ngModel)]="settings.translation_script" rows="6" class="w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 font-mono text-sm" placeholder='<div class="gtranslate_wrapper"></div>...'></textarea>
+                <p class="text-xs text-gray-500 italic">Paste the full HTML script provided by the translation service.</p>
+              </div>
+            </section>
             <!-- Email Configuration (SMTP) -->
             <section class="space-y-6">
               <h2 class="text-xl font-bold text-gray-800 border-b pb-2">Email Configuration (SMTP)</h2>
@@ -277,7 +287,8 @@ export class AdminDashboardComponent implements OnInit {
     bank_phone: '',
     bank_address_1: '',
     bank_address_2: '',
-    custom_js_script: ''
+    custom_js_script: '',
+    translation_script: ''
   };
 
   authSettings = {
