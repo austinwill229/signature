@@ -24,6 +24,7 @@ import { SettingsService } from '../services/settings.service';
             <h4 class="font-bold text-gray-900">Help \u0026 Support</h4>
             <ul class="space-y-2 text-sm text-gray-600">
               <li><a [href]="s.customer_service_link" class="hover:underline">Contact us</a></li>
+              <li><a [href]="'mailto:' + s.contact_email" class="hover:underline">{{ s.contact_email }}</a></li>
               <li><a routerLink="/security" class="hover:underline">Security Center</a></li>
               <li><a routerLink="/privacy" class="hover:underline">Privacy Center</a></li>
               <li><a href="#" class="hover:underline">Accessibility</a></li>
