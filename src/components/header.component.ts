@@ -128,6 +128,9 @@ import { SettingsService } from '../services/settings.service';
             </button>
             @if (activeDropdown() === 'lending') {
               <div class="absolute left-0 top-full mt-2 w-64 bg-white shadow-2xl rounded-lg py-4 z-50 border border-gray-100">
+                <a routerLink="/mortgage" (click)="closeAllMenus()" class="block px-6 py-3 hover:bg-gray-50 flex justify-between items-center group">
+                  Mortgage <i class="fa-solid fa-chevron-right text-[10px] opacity-0 group-hover:opacity-100"></i>
+                </a>
                 <a routerLink="/auto" (click)="closeAllMenus()" class="block px-6 py-3 hover:bg-gray-50 flex justify-between items-center group">
                   Auto Loan <i class="fa-solid fa-chevron-right text-[10px] opacity-0 group-hover:opacity-100"></i>
                 </a>
@@ -158,20 +161,103 @@ import { SettingsService } from '../services/settings.service';
 
       <!-- Mobile Menu -->
       @if (mobileMenuOpen()) {
-        <div class="md:hidden bg-white border-t border-gray-100 overflow-y-auto max-h-[80vh] px-4 py-6 space-y-4 animate-in slide-in-from-right">
+        <div class="md:hidden bg-white border-t border-gray-100 overflow-y-auto max-h-[calc(100vh-80px)] px-4 py-6 space-y-6 animate-in slide-in-from-right">
           <a [href]="s.signin_link || s.online_banking_link" class="block w-full bg-blue-600 text-white text-center font-bold py-3 rounded-md">Sign In</a>
           
-          <div class="space-y-6 pt-4">
-            <div>
-              <h4 class="text-xs font-bold text-gray-400 uppercase mb-3 px-2">Main Navigation</h4>
-              <div class="space-y-1">
-                <a routerLink="/" (click)="closeAllMenus()" class="block p-3 rounded-md hover:bg-gray-50 font-semibold">Home</a>
-                <a routerLink="/checking" (click)="closeAllMenus()" class="block p-3 rounded-md hover:bg-gray-50 font-semibold">Checking</a>
-                <a routerLink="/business" (click)="closeAllMenus()" class="block p-3 rounded-md hover:bg-gray-50 font-semibold">Business</a>
-                <a routerLink="/wealth" (click)="closeAllMenus()" class="block p-3 rounded-md hover:bg-gray-50 font-semibold">Wealth Management</a>
-                <a routerLink="/support" (click)="closeAllMenus()" class="block p-3 rounded-md hover:bg-gray-50 font-semibold">Support</a>
-              </div>
+          <div class="space-y-4">
+            <!-- Mobile Accordion: Banking -->
+            <div class="border-b border-gray-100 pb-3">
+              <button (click)="toggleDropdown('m-banking', $event)" class="w-full flex justify-between items-center font-bold text-gray-800 text-lg py-2">
+                Banking <i class="fa-solid" [ngClass]="activeDropdown() === 'm-banking' ? 'fa-minus' : 'fa-plus'"></i>
+              </button>
+              @if (activeDropdown() === 'm-banking') {
+                <div class="pl-4 py-2 space-y-3 mt-2 animate-in fade-in slide-in-from-top-2">
+                  <a routerLink="/checking" (click)="closeAllMenus()" class="block text-gray-600 font-medium">Checking</a>
+                  <a routerLink="/savings" (click)="closeAllMenus()" class="block text-gray-600 font-medium">Savings & CDs</a>
+                  <a routerLink="/debit-cards" (click)="closeAllMenus()" class="block text-gray-600 font-medium">Debit Cards</a>
+                </div>
+              }
             </div>
+
+            <!-- Mobile Accordion: Credit Cards -->
+            <div class="border-b border-gray-100 pb-3">
+              <button (click)="toggleDropdown('m-cards', $event)" class="w-full flex justify-between items-center font-bold text-gray-800 text-lg py-2">
+                Credit Cards <i class="fa-solid" [ngClass]="activeDropdown() === 'm-cards' ? 'fa-minus' : 'fa-plus'"></i>
+              </button>
+              @if (activeDropdown() === 'm-cards') {
+                <div class="pl-4 py-2 space-y-3 mt-2 animate-in fade-in slide-in-from-top-2">
+                  <a routerLink="/credit-cards" (click)="closeAllMenus()" class="block text-gray-600 font-medium">Explore All Cards</a>
+                  <a routerLink="/credit-cards/compare" (click)="closeAllMenus()" class="block text-gray-600 font-medium">Compare Cards</a>
+                </div>
+              }
+            </div>
+
+            <!-- Mobile Accordion: Lending -->
+            <div class="border-b border-gray-100 pb-3">
+              <button (click)="toggleDropdown('m-lending', $event)" class="w-full flex justify-between items-center font-bold text-gray-800 text-lg py-2">
+                Lending <i class="fa-solid" [ngClass]="activeDropdown() === 'm-lending' ? 'fa-minus' : 'fa-plus'"></i>
+              </button>
+              @if (activeDropdown() === 'm-lending') {
+                <div class="pl-4 py-2 space-y-3 mt-2 animate-in fade-in slide-in-from-top-2">
+                  <a routerLink="/mortgage" (click)="closeAllMenus()" class="block text-gray-600 font-medium">Mortgage</a>
+                  <a routerLink="/auto" (click)="closeAllMenus()" class="block text-gray-600 font-medium">Auto Loan</a>
+                </div>
+              }
+            </div>
+
+            <!-- Mobile Accordion: Investing -->
+            <div class="border-b border-gray-100 pb-3">
+              <button (click)="toggleDropdown('m-investing', $event)" class="w-full flex justify-between items-center font-bold text-gray-800 text-lg py-2">
+                Investing <i class="fa-solid" [ngClass]="activeDropdown() === 'm-investing' ? 'fa-minus' : 'fa-plus'"></i>
+              </button>
+              @if (activeDropdown() === 'm-investing') {
+                <div class="pl-4 py-2 space-y-3 mt-2 animate-in fade-in slide-in-from-top-2">
+                  <a routerLink="/investing" (click)="closeAllMenus()" class="block text-gray-600 font-medium">Self-Directed Investing</a>
+                  <a routerLink="/wealth" (click)="closeAllMenus()" class="block text-gray-600 font-medium">Private Banking</a>
+                </div>
+              }
+            </div>
+
+            <!-- Mobile Accordion: Business & Commercial -->
+            <div class="border-b border-gray-100 pb-3">
+              <button (click)="toggleDropdown('m-business', $event)" class="w-full flex justify-between items-center font-bold text-gray-800 text-lg py-2">
+                Business & Commercial <i class="fa-solid" [ngClass]="activeDropdown() === 'm-business' ? 'fa-minus' : 'fa-plus'"></i>
+              </button>
+              @if (activeDropdown() === 'm-business') {
+                <div class="pl-4 py-2 space-y-3 mt-2 animate-in fade-in slide-in-from-top-2">
+                  <a routerLink="/business" (click)="closeAllMenus()" class="block text-gray-600 font-medium">Small Business</a>
+                  <a routerLink="/commercial" (click)="closeAllMenus()" class="block text-gray-600 font-medium">Commercial Banking</a>
+                </div>
+              }
+            </div>
+
+            <!-- Mobile Accordion: Support -->
+            <div class="border-b border-gray-100 pb-3">
+              <button (click)="toggleDropdown('m-support', $event)" class="w-full flex justify-between items-center font-bold text-gray-800 text-lg py-2">
+                Support <i class="fa-solid" [ngClass]="activeDropdown() === 'm-support' ? 'fa-minus' : 'fa-plus'"></i>
+              </button>
+              @if (activeDropdown() === 'm-support') {
+                <div class="pl-4 py-2 space-y-3 mt-2 animate-in fade-in slide-in-from-top-2">
+                  <a routerLink="/support" (click)="closeAllMenus()" class="block text-gray-600 font-medium">Help Center</a>
+                  <a routerLink="/contact-us" (click)="closeAllMenus()" class="block text-gray-600 font-medium">Contact Us</a>
+                  <a routerLink="/locations" (click)="closeAllMenus()" class="block text-gray-600 font-medium">Locations</a>
+                  <a routerLink="/security" (click)="closeAllMenus()" class="block text-gray-600 font-medium">Security Center</a>
+                  <a routerLink="/about" (click)="closeAllMenus()" class="block text-gray-600 font-medium">About Us</a>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="grid grid-cols-2 gap-4 pt-4">
+            <a routerLink="/locations" (click)="closeAllMenus()" class="flex flex-col items-center gap-2 p-4 bg-gray-50 rounded-lg text-sm font-bold text-gray-700">
+              <i class="fa-solid fa-location-dot text-blue-600 text-xl"></i>
+              Locations
+            </a>
+            <a routerLink="/contact-advisor" (click)="closeAllMenus()" class="flex flex-col items-center gap-2 p-4 bg-gray-50 rounded-lg text-sm font-bold text-gray-700 text-center">
+              <i class="fa-solid fa-calendar-check text-blue-600 text-xl"></i>
+              Schedule Meeting
+            </a>
           </div>
         </div>
       }
