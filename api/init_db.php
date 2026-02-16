@@ -17,7 +17,7 @@ try {
 
     // Insert default settings if not exists
     $settings = [
-        'site_name' => 'APEX BANK',
+        'site_name' => 'Signature Trust Bank',
         'online_banking_link' => '#',
         'contact_email' => 'support@apexbank.com',
         'customer_service_link' => '/contact-us',
@@ -31,8 +31,8 @@ try {
         'smtp_user' => '',
         'smtp_pass' => '',
         'smtp_encryption' => 'tls',
-        'meta_description' => 'Experience premium banking with Apex Bank. Checking, Savings, Credit Cards, and Wealth Management services tailored to your needs.',
-        'meta_keywords' => 'banking, finance, checking, savings, credit cards, wealth management, loans',
+        'meta_description' => 'Apex Bank: Secure online banking for checking, savings, and credit cards. Managing your financial future with Apex Elite Rewards and innovative digital tools.',
+        'meta_keywords' => 'Apex Bank, digital banking, elite rewards, cashback pro, secure finance, online checking',
         'og_image' => '',
         'seo_rating_value' => '4.9',
         'seo_review_count' => '9758',

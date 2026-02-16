@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.angular
+deploy.tar.gz
+scp_exec.exp
+ssh_exec.exp

@@ -2,12 +2,13 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-offer-cards',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   template: `
     <section class="py-16 bg-gray-50" *ngIf="offers$ | async as offers">
       <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -24,7 +25,7 @@ import { Observable } from 'rxjs';
             <p class="text-gray-600 mb-6 text-sm leading-relaxed">
               {{ offer.description }}
             </p>
-            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded transition-colors mt-auto">{{ offer.button_text }}</button>
+            <a [routerLink]="offer.link" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded transition-colors mt-auto text-center">{{ offer.button_text }}</a>
           </div>
         </div>
       </div>

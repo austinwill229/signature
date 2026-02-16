@@ -20,13 +20,13 @@ import { SettingsService } from '../services/settings.service';
         <div class="md:w-1/2 mb-12 md:mb-0 text-white text-center md:text-left">
           <div class="flex items-baseline justify-center md:justify-start space-x-4">
             <span class="text-xl md:text-2xl font-light">Enjoy</span>
-            <h2 class="text-5xl md:text-7xl font-bold">$500</h2>
+            <h2 class="text-5xl md:text-7xl font-bold">$450</h2>
           </div>
           <h3 class="text-3xl md:text-4xl font-bold mt-4 leading-tight">
-            New {{ s.site_name }} Premier checking customers
+            New {{ s.site_name }} Signature checking customers
           </h3>
           <p class="text-base md:text-lg mt-4 max-w-md mx-auto md:mx-0 opacity-90">
-            Open an {{ s.site_name }} Premier Checking℠ account with qualifying activities and start banking better today.
+            Open an {{ s.site_name }} Signature Checking℠ account with qualifying activities and start banking better today.
           </p>
           <div class="flex flex-col sm:flex-row gap-4 mt-8 justify-center md:justify-start">
             <a [href]="s.signup_link || s.online_banking_link" class="apex-green text-white px-8 py-3 rounded-md font-bold transition-all transform hover:scale-105 text-center">

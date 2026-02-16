@@ -28,7 +28,7 @@ import { CommonModule } from '@angular/common';
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-2">
                   <label class="block text-sm font-bold text-gray-700">Site Name</label>
-                  <input [(ngModel)]="settings.site_name" class="w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="e.g. APEX BANK">
+                  <input [(ngModel)]="settings.site_name" class="w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="e.g. Signature Trust Bank">
                 </div>
                 <div class="space-y-2">
                   <label class="block text-sm font-bold text-gray-700">Contact Email</label>
